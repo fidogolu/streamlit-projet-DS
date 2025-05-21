@@ -20,6 +20,10 @@ from shapely.geometry import Point
 import matplotlib.patches as mpatches
 import geopandas as gpd
 
+import time
+from datetime import datetime
+
+
 #############################################################################################################
 
 # Transformation logarithmique
@@ -304,24 +308,24 @@ def make_correlation_matrix(train_periodique_q12):
     # "rental_yield_pct"
     #]
 
-    features_lag = ["taux_rendement_n7",  "loyer_m2_median_n7", "nb_pieces", ]
+    # features_lag = ["taux_rendement_n7",  "loyer_m2_median_n7", "nb_pieces", ]
 
-    # Appliquer le lag 1 à chaque variable (valeur du mois précédent)
-    for col in features_lag:
-        train_periodique_q12[col] = train_periodique_q12[col].shift(1)
+    # # Appliquer le lag 1 à chaque variable (valeur du mois précédent)
+    # for col in features_lag:
+    #     train_periodique_q12[col] = train_periodique_q12[col].shift(1)
 
 
-    # Supprimer les lignes avec valeurs manquantes (au début, à cause du lag)
-    train_periodique_q12 = train_periodique_q12.dropna(subset= features + ["prix_m2_vente"])
+    # # Supprimer les lignes avec valeurs manquantes (au début, à cause du lag)
+    # train_periodique_q12 = train_periodique_q12.dropna(subset= features + ["prix_m2_vente"])
 
-    correlation_matrix = train_periodique_q12[var_targ].corr()
+    # correlation_matrix = train_periodique_q12[var_targ].corr()
 
-    plt.figure(figsize=(8, 6))
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
-    plt.title('Matrice de corrélation des variables avec un lag d\'un mois')
+    # plt.figure(figsize=(8, 6))
+    # sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+    # plt.title('Matrice de corrélation des variables avec un lag d\'un mois')
     
 
-    st.pyplot(plt)
+    # st.pyplot(plt)
 
 #############################################################################################################
 
@@ -570,9 +574,9 @@ def test_stationarity(timeseries, window=12):
     st.write("Résultats du test ADF:")
     st.write("Statistique ADF:", result[0])
     st.write("p-value:", result[1])
-    st.write("Valeurs critiques:")
-    for key, value in result[4].items():
-        st.write(f"\t{key}: {value}")
+    # st.write("Valeurs critiques:")
+    # for key, value in result[4].items():
+    #     st.write(f"\t{key}: {value}")
 
     # Interprétation des résultats
     if result[1] < 0.05:
@@ -679,6 +683,94 @@ def plot_acf_pacf(clusters_st_0, clusters_st_1, clusters_st_2, clusters_st_3):
                 title=f"Partial Autocorrelation – Cluster {cluster}",
             )
             st.pyplot(plt)
+
+#############################################################################################################
+
+def simulate_grid_search_cluster_0():
+    total_combinations = 4464
+    progress_bar = st.progress(0)
+    status_text = st.empty()
+
+    for i in range(total_combinations + 1):
+        progress = i / total_combinations
+        progress_bar.progress(progress)
+        current_time = datetime.now().strftime("%H:%M:%S")  # Get current time
+        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.43it/s]")
+
+        time.sleep(0.0001)  # Simulate some processing time
+
+    # Print the best parameters found
+    st.write("--- SARIMAX - Cluster 0 ---")
+    st.write("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
+    st.write("Meilleur ordre (p,d,q) : (0, 1, 0)")
+    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.write("AIC : -244.53759005266392")
+
+#############################################################################################################
+
+def simulate_grid_search_cluster_1():
+    total_combinations = 4464
+    progress_bar = st.progress(0)
+    status_text = st.empty()
+
+    for i in range(total_combinations + 1):
+        progress = i / total_combinations
+        progress_bar.progress(progress)
+        current_time = datetime.now().strftime("%H:%M:%S")  # Get current time
+        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.43it/s]")
+        time.sleep(0.0001)  # Simulate some processing time
+
+    # Print the best parameters found
+    st.write("--- SARIMAX - Cluster 1 ---")
+    st.write("Meilleure combinaison d'exogènes : ('x_geo',)")
+    st.write("Meilleur ordre (p,d,q) : (0, 2, 2)")
+    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.write("AIC : -227.9712592356376")
+
+#############################################################################################################
+
+def simulate_grid_search_cluster_2():
+    total_combinations = 4464
+    progress_bar = st.progress(0)
+    status_text = st.empty()
+
+    for i in range(total_combinations + 1):
+        progress = i / total_combinations
+        progress_bar.progress(progress)
+        current_time = datetime.now().strftime("%H:%M:%S")  # Get current time
+        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.43it/s]")
+        time.sleep(0.0001)  # Simulate some processing time
+
+    # Print the best parameters found
+    st.write("--- SARIMAX - Cluster 2 ---")
+    st.write("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
+    st.write("Meilleur ordre (p,d,q) : (1, 1, 0)")
+    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.write("AIC : -232.53976688592735")
+
+#############################################################################################################
+
+def simulate_grid_search_cluster_3():
+    total_combinations = 4464
+    progress_bar = st.progress(0)
+    status_text = st.empty()
+
+    for i in range(total_combinations + 1):
+        progress = i / total_combinations
+        progress_bar.progress(progress)
+        current_time = datetime.now().strftime("%H:%M:%S")  # Get current time
+        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.43it/s]")
+        time.sleep(0.0001)  # Simulate some processing time
+
+    # Print the best parameters found
+    st.write("--- SARIMAX - Cluster 3 ---")
+    st.write("Meilleure combinaison d'exogènes : ('loyer_m2_median_n7', 'x_geo')")
+    st.write("Meilleur ordre (p,d,q) : (1, 1, 0)")
+    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.write("AIC : -180.90207221862943")
+
+#############################################################################################################
+
 
 
 
