@@ -1,0 +1,39 @@
+# Ignorer les fichiers CSV
+*.csv
+
+# Streamlit
+.streamlit/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Environnements virtuels
+Pipfile
+Pipfile.lock
+
+# Configurations IDE
+.vscode/
+.idea/
+
+# Autres fichiers sensibles
+*.env
+.env.*
