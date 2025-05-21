@@ -2,3 +2,8 @@ matplotlib
 seaborn
 plotly
 statsmodels
+sklearn
+geopandas
+shapely
+numpy
+pandas
