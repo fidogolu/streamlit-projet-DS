@@ -1,10 +1,11 @@
-pip
 matplotlib
 seaborn
 plotly
 statsmodels
-sklearn
 geopandas
 shapely
-numpy
+streamlit
+scikit-learn
 pandas
+numpy
+joblib
