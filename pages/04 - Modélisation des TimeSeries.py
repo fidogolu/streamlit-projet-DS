@@ -69,6 +69,6 @@ clusters_st_0, clusters_st_1, clusters_st_2, clusters_st_3 = differeciate_cluste
 #############################################################################################################
 
 st.write('### ACF et PACF')
-st.write("""Pour déterminer les ordres \( p \), \( q \), \( P \), et \( Q \) d'un modèle ARIMA saisonnier (SARIMA), les fonctions d'autocorrélation (ACF) et d'autocorrélation partielle (PACF) sont des outils essentiels.""")
+st.write("""Pour déterminer les ordres  p ,  q ,  P , et  Q  d'un modèle ARIMA saisonnier (SARIMA), les fonctions d'autocorrélation (ACF) et d'autocorrélation partielle (PACF) sont des outils essentiels.""")
 
 plot_acf_pacf(clusters_st_0, clusters_st_1, clusters_st_2, clusters_st_3)
