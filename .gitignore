@@ -1,0 +1,10 @@
+# Ignorer les fichiers CSV
+*.csv
+data/raw/df_sales_clean_polars.csv
+data/processed/Sales/df_sales_clean_ST.csv
+data/processed/Sales/test_periodique_q12.csv
+data/processed/Sales/train_periodique_q12.csv
+data/temp/Train_pour_graph.csv
+data/temp/Train_pour_graph_cp.csv
+data/temp/df_cluster_input.csv
+data/temp/geo_df.csv
