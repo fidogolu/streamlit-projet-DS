@@ -787,7 +787,7 @@ def simulate_grid_search_cluster_3():
     st.text("Meilleure combinaison d'exogènes : ('loyer_m2_median_n7', 'x_geo')")
     st.text("Meilleur ordre (p,d,q) : (1, 1, 0)")
     st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.text("AIC : -180.90207221862943")
+    st.text("AIC : -181.32407221862943")
     
     cluster_3_model = joblib.load('./models/best_sarimax_cluster3.joblib')
     st.write('### Résumé du modèle SARIMAX pour le cluster 3')
