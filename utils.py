@@ -700,11 +700,11 @@ def simulate_grid_search_cluster_0():
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
-    st.write("--- SARIMAX - Cluster 0 ---")
-    st.write("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
-    st.write("Meilleur ordre (p,d,q) : (0, 1, 0)")
-    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.write("AIC : -244.53759005266392")
+    st.text("--- SARIMAX - Cluster 0 ---")
+    st.text("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
+    st.text("Meilleur ordre (p,d,q) : (0, 1, 0)")
+    st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.text("AIC : -244.53759005266392")
 
 #############################################################################################################
 
@@ -721,11 +721,11 @@ def simulate_grid_search_cluster_1():
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
-    st.write("--- SARIMAX - Cluster 1 ---")
-    st.write("Meilleure combinaison d'exogènes : ('x_geo',)")
-    st.write("Meilleur ordre (p,d,q) : (0, 2, 2)")
-    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.write("AIC : -227.9712592356376")
+    st.text("--- SARIMAX - Cluster 1 ---")
+    st.text("Meilleure combinaison d'exogènes : ('x_geo',)")
+    st.text("Meilleur ordre (p,d,q) : (0, 2, 2)")
+    st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.text("AIC : -227.9712592356376")
 
 #############################################################################################################
 
@@ -742,11 +742,11 @@ def simulate_grid_search_cluster_2():
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
-    st.write("--- SARIMAX - Cluster 2 ---")
-    st.write("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
-    st.write("Meilleur ordre (p,d,q) : (1, 1, 0)")
-    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.write("AIC : -232.53976688592735")
+    st.text("--- SARIMAX - Cluster 2 ---")
+    st.text("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
+    st.text("Meilleur ordre (p,d,q) : (1, 1, 0)")
+    st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.text("AIC : -232.53976688592735")
 
 #############################################################################################################
 
@@ -763,11 +763,11 @@ def simulate_grid_search_cluster_3():
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
-    st.write("--- SARIMAX - Cluster 3 ---")
-    st.write("Meilleure combinaison d'exogènes : ('loyer_m2_median_n7', 'x_geo')")
-    st.write("Meilleur ordre (p,d,q) : (1, 1, 0)")
-    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.write("AIC : -180.90207221862943")
+    st.text("--- SARIMAX - Cluster 3 ---")
+    st.text("Meilleure combinaison d'exogènes : ('loyer_m2_median_n7', 'x_geo')")
+    st.text("Meilleur ordre (p,d,q) : (1, 1, 0)")
+    st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.text("AIC : -180.90207221862943")
 
 #############################################################################################################
 
