@@ -795,37 +795,11 @@ def simulate_grid_search_cluster_3():
 
     fig = cluster_3_model.plot_diagnostics(figsize=(15, 12))
     st.pyplot(fig)
+    
 #############################################################################################################
 
 
 
 
-# def my_function():
-    # # Define the pattern to match the split files
-    # file_pattern = 'data/raw/Sales/merged_sales_data_part_*.csv'
-    
-    # # Use glob to get a list of all split files
-    # split_files = glob.glob(file_pattern)
 
-    # # Sort the list of files to ensure they are in the correct order
-    # split_files.sort()
-
-    # # Initialize an empty list to store DataFrames
-    # dataframes = []
-
-    # # Read each split file and append its DataFrame to the list
-    # for file in split_files:
-    #     df = pd.read_csv(file)
-    #     dataframes.append(df)
-
-    # # Concatenate all DataFrames into a single DataFrame
-    # combined_df = pd.concat(dataframes, ignore_index=True)
-
-    # # Define the output file path for the combined CSV file
-    # output_file_path = 'data/raw/Sales/merged_sales_data2.csv'
-
-    # # Save the combined DataFrame to a CSV file
-    # combined_df.to_csv(output_file_path, index=False)
-
-    # st.write(f"Combined file saved to {output_file_path}")
 
