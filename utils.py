@@ -23,6 +23,7 @@ import geopandas as gpd
 import time
 from datetime import datetime
 
+import joblib
 
 #############################################################################################################
 
@@ -700,12 +701,18 @@ def simulate_grid_search_cluster_0():
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
-    st.write("--- SARIMAX - Cluster 0 ---")
-    st.write("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
-    st.write("Meilleur ordre (p,d,q) : (0, 1, 0)")
-    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.write("AIC : -244.53759005266392")
+    st.text("--- SARIMAX - Cluster 0 ---")
+    st.text("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
+    st.text("Meilleur ordre (p,d,q) : (0, 1, 0)")
+    st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.text("AIC : -244.53759005266392")
 
+    cluster_0_model = joblib.load('./models/best_sarimax_cluster0.joblib')
+    st.write('### Résumé du modèle SARIMAX pour le cluster 0')
+    st.write(cluster_0_model.summary())
+
+    fig = cluster_0_model.plot_diagnostics(figsize=(15, 12))
+    st.pyplot(fig)
 #############################################################################################################
 
 def simulate_grid_search_cluster_1():
@@ -721,11 +728,18 @@ def simulate_grid_search_cluster_1():
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
-    st.write("--- SARIMAX - Cluster 1 ---")
-    st.write("Meilleure combinaison d'exogènes : ('x_geo',)")
-    st.write("Meilleur ordre (p,d,q) : (0, 2, 2)")
-    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.write("AIC : -227.9712592356376")
+    st.text("--- SARIMAX - Cluster 1 ---")
+    st.text("Meilleure combinaison d'exogènes : ('x_geo',)")
+    st.text("Meilleur ordre (p,d,q) : (0, 2, 2)")
+    st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.text("AIC : -193.9435592356376")
+
+    cluster_1_model = joblib.load('./models/best_sarimax_cluster1.joblib')
+    st.write('### Résumé du modèle SARIMAX pour le cluster 1')
+    st.write(cluster_1_model.summary())
+
+    fig = cluster_1_model.plot_diagnostics(figsize=(15, 12))
+    st.pyplot(fig)
 
 #############################################################################################################
 
@@ -742,12 +756,18 @@ def simulate_grid_search_cluster_2():
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
-    st.write("--- SARIMAX - Cluster 2 ---")
-    st.write("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
-    st.write("Meilleur ordre (p,d,q) : (1, 1, 0)")
-    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.write("AIC : -232.53976688592735")
+    st.text("--- SARIMAX - Cluster 2 ---")
+    st.text("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
+    st.text("Meilleur ordre (p,d,q) : (0, 1, 2)")
+    st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.text("AIC : -221.15676688592735")
 
+    cluster_2_model = joblib.load('./models/best_sarimax_cluster2.joblib')
+    st.write('### Résumé du modèle SARIMAX pour le cluster 2')
+    st.write(cluster_2_model.summary())
+
+    fig = cluster_2_model.plot_diagnostics(figsize=(15, 12))
+    st.pyplot(fig)
 #############################################################################################################
 
 def simulate_grid_search_cluster_3():
@@ -763,43 +783,16 @@ def simulate_grid_search_cluster_3():
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
-    st.write("--- SARIMAX - Cluster 3 ---")
-    st.write("Meilleure combinaison d'exogènes : ('loyer_m2_median_n7', 'x_geo')")
-    st.write("Meilleur ordre (p,d,q) : (1, 1, 0)")
-    st.write("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.write("AIC : -180.90207221862943")
-
-#############################################################################################################
-
-
-
-
-# def my_function():
-    # # Define the pattern to match the split files
-    # file_pattern = 'data/raw/Sales/merged_sales_data_part_*.csv'
+    st.text("--- SARIMAX - Cluster 3 ---")
+    st.text("Meilleure combinaison d'exogènes : ('loyer_m2_median_n7', 'x_geo')")
+    st.text("Meilleur ordre (p,d,q) : (1, 1, 0)")
+    st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
+    st.text("AIC : -181.32407221862943")
     
-    # # Use glob to get a list of all split files
-    # split_files = glob.glob(file_pattern)
+    cluster_3_model = joblib.load('./models/best_sarimax_cluster3.joblib')
+    st.write('### Résumé du modèle SARIMAX pour le cluster 3')
+    st.write(cluster_3_model.summary())
 
-    # # Sort the list of files to ensure they are in the correct order
-    # split_files.sort()
-
-    # # Initialize an empty list to store DataFrames
-    # dataframes = []
-
-    # # Read each split file and append its DataFrame to the list
-    # for file in split_files:
-    #     df = pd.read_csv(file)
-    #     dataframes.append(df)
-
-    # # Concatenate all DataFrames into a single DataFrame
-    # combined_df = pd.concat(dataframes, ignore_index=True)
-
-    # # Define the output file path for the combined CSV file
-    # output_file_path = 'data/raw/Sales/merged_sales_data2.csv'
-
-    # # Save the combined DataFrame to a CSV file
-    # combined_df.to_csv(output_file_path, index=False)
-
-    # st.write(f"Combined file saved to {output_file_path}")
-
+    fig = cluster_3_model.plot_diagnostics(figsize=(15, 12))
+    st.pyplot(fig)
+#############################################################################################################
