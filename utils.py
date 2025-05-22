@@ -8,6 +8,7 @@ import statsmodels as sm
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.graphics.tsaplots import plot_pacf, plot_acf
+from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -15,7 +16,7 @@ import plotly.express as px
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
-
+from sklearn.metrics import mean_absolute_error, r2_score
 from shapely.geometry import Point
 import matplotlib.patches as mpatches
 import geopandas as gpd
@@ -687,7 +688,7 @@ def plot_acf_pacf(clusters_st_0, clusters_st_1, clusters_st_2, clusters_st_3):
 
 #############################################################################################################
 
-def simulate_grid_search_cluster_0():
+def grid_search_cluster_0():
     total_combinations = 4464
     progress_bar = st.progress(0)
     status_text = st.empty()
@@ -713,9 +714,10 @@ def simulate_grid_search_cluster_0():
 
     fig = cluster_0_model.plot_diagnostics(figsize=(15, 12))
     st.pyplot(fig)
+
 #############################################################################################################
 
-def simulate_grid_search_cluster_1():
+def grid_search_cluster_1():
     total_combinations = 4464
     progress_bar = st.progress(0)
     status_text = st.empty()
@@ -743,7 +745,7 @@ def simulate_grid_search_cluster_1():
 
 #############################################################################################################
 
-def simulate_grid_search_cluster_2():
+def grid_search_cluster_2():
     total_combinations = 4464
     progress_bar = st.progress(0)
     status_text = st.empty()
@@ -768,9 +770,10 @@ def simulate_grid_search_cluster_2():
 
     fig = cluster_2_model.plot_diagnostics(figsize=(15, 12))
     st.pyplot(fig)
+
 #############################################################################################################
 
-def simulate_grid_search_cluster_3():
+def grid_search_cluster_3():
     total_combinations = 4464
     progress_bar = st.progress(0)
     status_text = st.empty()
@@ -795,11 +798,156 @@ def simulate_grid_search_cluster_3():
 
     fig = cluster_3_model.plot_diagnostics(figsize=(15, 12))
     st.pyplot(fig)
-    
+
 #############################################################################################################
 
+# def make_sarimax_prediction(sarimax_model, train_periodique_q12, test_periodique_q12, cluster_number = 0):
+
+#     df_cluster_3 = train_periodique_q12[train_periodique_q12["cluster"] == cluster_number]
+#     df_cluster_3_test = test_periodique_q12[test_periodique_q12["cluster"] == cluster_number]
+
+#     df3_test = test_periodique_q12[test_periodique_q12.cluster == cluster_number]
+#     exog_names = sarimax_model.model.exog_names
+#     exog3 = df3_test[exog_names]
+#     k = len(exog3)
+
+#     # Prédictions itératives
+#     preds, lowers, uppers = [], [], []
+    
+#     for t in range(k):
+#         xt = exog3.iloc[t:t+1]
+#         pred = sarimax_model.get_forecast(steps=1, exog=xt).summary_frame()
+#         preds.append(np.exp(pred["mean"].values[0]))
+#         lowers.append(np.exp(pred["mean_ci_lower"].values[0]))
+#         uppers.append(np.exp(pred["mean_ci_upper"].values[0]))
+
+#     prediction_cluster_3 = pd.DataFrame({
+#         "mean": preds,
+#         "mean_ci_lower": lowers,
+#         "mean_ci_upper": uppers
+#     }, index=exog3.index[:k])
+
+#     # Séries observées
+#     y3_train_eur = np.exp(df_cluster_3["prix_m2_vente"])
+#     y3_test_eur = np.exp(df_cluster_3_test["prix_m2_vente"])
+#     y3_pred_eur = prediction_cluster_3
+
+#     # Affichage
+#     plt.figure(figsize=(15, 5))
+#     plt.plot(y3_train_eur, label="Données d'entraînement")
+#     plt.plot(y3_test_eur, label="Données de test")
+#     plt.plot(y3_pred_eur["mean"], "k--", label="Prédiction moyenne (pas à pas)")
+#     plt.fill_between(
+#         y3_pred_eur.index,
+#         y3_pred_eur["mean_ci_lower"],
+#         y3_pred_eur["mean_ci_upper"],
+#         color="gray", alpha=0.3, label="Intervalle de confiance"
+#     )
+#     plt.title(f"Prédiction itérative avec IC – Cluster {cluster_number}")
+#     plt.xlabel("Date")
+#     plt.ylabel("Prix (€/m²)")
+#     plt.legend()
+#     plt.tight_layout()
+
+#     # Display the plot in Streamlit
+#     st.pyplot(plt)
+
+#     # Erreurs
+#     erreur_relative_pct = 100 * np.abs((y3_test_eur - y3_pred_eur["mean"]) / y3_test_eur)
+#     mae = mean_absolute_error(y3_test_eur, y3_pred_eur["mean"])
+
+#     st.write(f"MAE : {mae:.2f} €/m²")
+#     st.write(f"%Erreur moyenne : {erreur_relative_pct.mean():.2f} %")
+
+#############################################################################################################
+
+def get_cluster_model_0():
+    # Load the best model for cluster 0
+    cluster_0_model = joblib.load('./models/best_sarimax_cluster0.joblib')
+    return cluster_0_model
+
+#############################################################################################################
+
+def get_cluster_model_1():
+    # Load the best model for cluster 1
+    cluster_1_model = joblib.load('./models/best_sarimax_cluster1.joblib')
+    return cluster_1_model 
+
+#############################################################################################################
+
+def get_cluster_model_2():
+    # Load the best model for cluster 2
+    cluster_2_model = joblib.load('./models/best_sarimax_cluster2.joblib')
+    return cluster_2_model  
+
+#############################################################################################################
+
+def get_cluster_model_3():
+    # Load the best model for cluster 3
+    cluster_3_model = joblib.load('./models/best_sarimax_cluster3.joblib')
+    return cluster_3_model
+
+#############################################################################################################
+
+def make_sarimax_prediction(train_periodique_q12, test_periodique_q12, order=(0, 1, 0) , seasonal_order=(0, 1, 0, 12),cluster_number=0):
+    # Filter data for the specified cluster
+    df_cluster = train_periodique_q12[train_periodique_q12["cluster"] == cluster_number]
+    df_cluster_test = test_periodique_q12[test_periodique_q12["cluster"] == cluster_number]
+
+    # Ensure the training data is a single column
+    df_cluster = df_cluster[["prix_m2_vente"]]
+
+    # Initialize the SARIMAX model without exogenous variables
+    model = SARIMAX(
+        df_cluster,
+        order=order,
+        seasonal_order=seasonal_order
+    )
+
+    # Fit the model
+    results = model.fit()
 
 
+    # Prediction with confidence interval
+    prediction = results.get_forecast(steps=14).summary_frame()
 
+    # Apply exponential transformation
+    y_test = np.exp(df_cluster_test['prix_m2_vente'])
+    y_pred = np.exp(prediction['mean'])
 
+    # Plot
+    fig, ax = plt.subplots(figsize=(15, 5))
+    plt.plot(np.exp(df_cluster['prix_m2_vente']), label='Données d\'entraînement')
+    plt.plot(y_test, label='Données de test')
+    plt.plot(y_pred, 'k--', label='Prédiction moyenne (pas à pas)')
 
+    # Visualize the confidence interval
+    ax.fill_between(
+        prediction.index,
+        np.exp(prediction['mean_ci_lower']),
+        np.exp(prediction['mean_ci_upper']),
+        color='purple',
+        alpha=0.1,
+        label='Intervalle de confiance'
+    )
+
+    plt.legend()
+    plt.title(f"Prédiction avec IC – Cluster {cluster_number}")
+    #plt.title('Prédiction avec intervalle de confiance')
+    plt.xlabel('Date')
+    plt.ylabel('Prix (€/m²)')
+    st.pyplot(fig)
+
+    # Calculate errors
+    relative_error_pct = 100 * np.abs((y_test - y_pred) / y_test)
+    mae = mean_absolute_error(y_test, y_pred)
+    r2 = r2_score(y_test, y_pred)
+    mape = np.mean(np.abs((y_test - y_pred) / y_test)) * 100  # Mean Absolute Percentage Error
+
+    # Display errors
+    st.write(f"MAE : {mae:.2f} €/m²")
+    #st.write(f"%Erreur moyenne : {relative_error_pct.mean():.2f} %")
+    #st.write(f"R²: {r2:.2f}")
+    st.write(f"MAPE: {mape:.2f} %")
+
+    st.markdown("""<hr style="height:2px;border:none;color:#333;background-color:#333;" />""", unsafe_allow_html=True)
