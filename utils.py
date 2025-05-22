@@ -687,7 +687,7 @@ def plot_acf_pacf(clusters_st_0, clusters_st_1, clusters_st_2, clusters_st_3):
 
 #############################################################################################################
 
-def simulate_grid_search_cluster_0():
+def grid_search_cluster_0():
     total_combinations = 4464
     progress_bar = st.progress(0)
     status_text = st.empty()
@@ -715,7 +715,7 @@ def simulate_grid_search_cluster_0():
     st.pyplot(fig)
 #############################################################################################################
 
-def simulate_grid_search_cluster_1():
+def grid_search_cluster_1():
     total_combinations = 4464
     progress_bar = st.progress(0)
     status_text = st.empty()
@@ -743,7 +743,7 @@ def simulate_grid_search_cluster_1():
 
 #############################################################################################################
 
-def simulate_grid_search_cluster_2():
+def grid_search_cluster_2():
     total_combinations = 4464
     progress_bar = st.progress(0)
     status_text = st.empty()
@@ -770,7 +770,7 @@ def simulate_grid_search_cluster_2():
     st.pyplot(fig)
 #############################################################################################################
 
-def simulate_grid_search_cluster_3():
+def grid_search_cluster_3():
     total_combinations = 4464
     progress_bar = st.progress(0)
     status_text = st.empty()

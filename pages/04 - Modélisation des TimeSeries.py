@@ -8,10 +8,8 @@ import matplotlib.pyplot as plt
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 from utils import make_correlation_matrix,seasonal_decompose_for_clusters, draw_clusters_cvs, differeciate_cluster
-from utils import test_stationarity,plot_acf_pacf
-from utils import simulate_grid_search_cluster_0, simulate_grid_search_cluster_1, simulate_grid_search_cluster_2, simulate_grid_search_cluster_3
-
-
+from utils import plot_acf_pacf
+from utils import grid_search_cluster_0, grid_search_cluster_1, grid_search_cluster_2, grid_search_cluster_3
 
 #############################################################################################################
 # Title
@@ -87,9 +85,9 @@ st.write('### GridSearch pour SARIMAX')
 st.write('Le GridSearch consiste à tester toutes les combinaisons possibles, d\'ordres (p, d, q) et de paramètres saisonniers (P, D, Q, s) pour trouver la combinaison qui minimise un critère d\'information tel que l\'AIC (Akaike Information Criterion).')  
 
 if st.button('Lancer GridSearch'):
-    simulate_grid_search_cluster_0()
-    simulate_grid_search_cluster_1()
-    simulate_grid_search_cluster_2()
-    simulate_grid_search_cluster_3()
+    grid_search_cluster_0()
+    grid_search_cluster_1()
+    grid_search_cluster_2()
+    grid_search_cluster_3()
 
 
