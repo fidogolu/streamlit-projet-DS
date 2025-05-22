@@ -23,6 +23,7 @@ import geopandas as gpd
 import time
 from datetime import datetime
 
+import joblib
 
 #############################################################################################################
 
@@ -706,6 +707,12 @@ def simulate_grid_search_cluster_0():
     st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
     st.text("AIC : -244.53759005266392")
 
+    cluster_0_model = joblib.load('./models/best_sarimax_cluster0.joblib')
+    st.write('### Résumé du modèle SARIMAX pour le cluster 0')
+    st.write(cluster_0_model.summary())
+
+    fig = cluster_0_model.plot_diagnostics(figsize=(15, 12))
+    st.pyplot(fig)
 #############################################################################################################
 
 def simulate_grid_search_cluster_1():
@@ -725,7 +732,14 @@ def simulate_grid_search_cluster_1():
     st.text("Meilleure combinaison d'exogènes : ('x_geo',)")
     st.text("Meilleur ordre (p,d,q) : (0, 2, 2)")
     st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.text("AIC : -227.9712592356376")
+    st.text("AIC : -193.9435592356376")
+
+    cluster_1_model = joblib.load('./models/best_sarimax_cluster1.joblib')
+    st.write('### Résumé du modèle SARIMAX pour le cluster 1')
+    st.write(cluster_1_model.summary())
+
+    fig = cluster_1_model.plot_diagnostics(figsize=(15, 12))
+    st.pyplot(fig)
 
 #############################################################################################################
 
@@ -744,10 +758,16 @@ def simulate_grid_search_cluster_2():
     # Print the best parameters found
     st.text("--- SARIMAX - Cluster 2 ---")
     st.text("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
-    st.text("Meilleur ordre (p,d,q) : (1, 1, 0)")
+    st.text("Meilleur ordre (p,d,q) : (0, 1, 2)")
     st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
-    st.text("AIC : -232.53976688592735")
+    st.text("AIC : -221.15676688592735")
 
+    cluster_2_model = joblib.load('./models/best_sarimax_cluster2.joblib')
+    st.write('### Résumé du modèle SARIMAX pour le cluster 2')
+    st.write(cluster_2_model.summary())
+
+    fig = cluster_2_model.plot_diagnostics(figsize=(15, 12))
+    st.pyplot(fig)
 #############################################################################################################
 
 def simulate_grid_search_cluster_3():
@@ -768,7 +788,13 @@ def simulate_grid_search_cluster_3():
     st.text("Meilleur ordre (p,d,q) : (1, 1, 0)")
     st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
     st.text("AIC : -180.90207221862943")
+    
+    cluster_3_model = joblib.load('./models/best_sarimax_cluster3.joblib')
+    st.write('### Résumé du modèle SARIMAX pour le cluster 3')
+    st.write(cluster_3_model.summary())
 
+    fig = cluster_3_model.plot_diagnostics(figsize=(15, 12))
+    st.pyplot(fig)
 #############################################################################################################
 
 
