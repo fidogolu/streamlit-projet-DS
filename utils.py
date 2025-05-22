@@ -889,6 +889,7 @@ def get_cluster_model_3():
 
 #############################################################################################################
 
+@st.cache_data
 def make_sarimax_prediction(train_periodique_q12, test_periodique_q12, order=(0, 1, 0) , seasonal_order=(0, 1, 0, 12),cluster_number=0):
     # Filter data for the specified cluster
     df_cluster = train_periodique_q12[train_periodique_q12["cluster"] == cluster_number]
