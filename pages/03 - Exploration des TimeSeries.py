@@ -68,12 +68,12 @@ distrib_cluster(df_cluster_input)
 st.write('\n')
 
 st.markdown("""
-| Cluster | Couleur | Niveau de prix     | Volatilité       | Croissance (`tc_am_reg`) | Interprétation économique                                         |
-|---------|---------|--------------------|------------------|---------------------------|-------------------------------------------------------------------|
-| 0       | Bleu    | Moyen à élevé       | Faible           | Modérée                   | Centres urbains établis, zones résidentielles stables            |
-| 1       | Orange  | Moyen à élevé       | Élevée           | Modérée à forte           | Banlieues, zones mixtes ou périurbaines en transformation         |
-| 2       | Vert    | Faible              | Très faible      | Faible à négative         | Zones rurales, petites villes stagnantes ou décroissantes        |
-| 3       | Rouge   | Très élevé          | Très élevée      | Modérée à forte           | Zones tendues : luxe, hypercentres, littoraux, secteurs spéculatifs |
+| Cluster |  Couleur  | Niveau de prix |    Volatilité   |    Croissance (tc\_am\_reg)   | Interprétation économique                                       |
+| :-----: | :-------: | :------------: | :-------------: | :---------------------------: | :-------------------------------------------------------------- |
+|    0    |  🔵 Bleu  |   **Faible**   | **Très faible** | **Faible / parfois négative** | **Zones rurales / petites villes stagnantes**                   |
+|    1    | 🟠 Orange |  **Moyen-bas** |   **Modérée**   |          **Modérée**          | **Périphéries et banlieues**                   |
+|    2    |  🟢 Vert  | **Moyen-haut** |   **Modérée**   |      **Modérée à bonne**      | **Centres urbains établis, marchés résidentiels stables**       |
+|    3    |  🔴 Rouge | **Très élevé** |    **Élevée**   |           **Forte**           | **Zones tendues / spéculatives (luxe, hypercentre, littoral…)** |
 """)
 
 
