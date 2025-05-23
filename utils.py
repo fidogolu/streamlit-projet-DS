@@ -199,21 +199,15 @@ def distrib_cluster(df_cluster_input):
         "tc_am_reg",
         "prix_m2_cv",
     ]
-    columns = ["codePostal_recons"] + features
-
-    X = df_cluster_input[columns].copy()
-    X.replace([np.inf, -np.inf], np.nan, inplace=True)
-    X = X.dropna()
-
-    # Normalisation
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X[features])
-
-    kmeans = KMeans(n_clusters=4, random_state=0)
-    X["cluster"] = kmeans.fit_predict(X_scaled)
+    cluster_palette = {
+    "Zones rurales, petites villes stagnantes":    "#1f77b4",
+    "Banlieues, zones mixtes":                    "#ff7f0e",
+    "Centres urbains établis, zones résidentielles":"#2ca02c",
+    "Zones tendues - secteurs spéculatifs":        "#d62728",
+    }
 
     # Créer le pair plot
-    sns.pairplot(X, vars=features, hue="cluster", palette="tab10",height=1.6)
+    sns.pairplot(df_cluster_input, vars=features, hue="cluster_label", hue_order=list(cluster_palette.keys()),palette=cluster_palette,)
     # plt.suptitle("Distribution des indicateurs par cluster", y=1.02)
 
     # Affichage du pair plot dans Streamlit
