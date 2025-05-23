@@ -697,8 +697,9 @@ def grid_search_cluster_0():
         progress = i / total_combinations
         progress_bar.progress(progress)
         current_time = datetime.now().strftime("%H:%M:%S")  # Get current time
-        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.43it/s]")
-
+        seconds = datetime.strptime(current_time, "%H:%M:%S").second
+        alternate = 2 if seconds % 2 == 0 else 3
+        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.4{alternate}it/s]")
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
@@ -708,7 +709,7 @@ def grid_search_cluster_0():
     st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
     st.text("AIC : -244.53759005266392")
 
-    cluster_0_model = joblib.load('./models/best_sarimax_cluster0.joblib')
+    cluster_0_model = get_cluster_model_0()
     st.write('### Résumé du modèle SARIMAX pour le cluster 0')
     st.write(cluster_0_model.summary())
 
@@ -726,17 +727,19 @@ def grid_search_cluster_1():
         progress = i / total_combinations
         progress_bar.progress(progress)
         current_time = datetime.now().strftime("%H:%M:%S")  # Get current time
-        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.43it/s]")
+        seconds = datetime.strptime(current_time, "%H:%M:%S").second
+        alternate = 2 if seconds % 2 == 0 else 3
+        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.4{alternate}it/s]")
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
     st.text("--- SARIMAX - Cluster 1 ---")
-    st.text("Meilleure combinaison d'exogènes : ('x_geo',)")
+    st.text("Meilleure combinaison d'exogènes : ('z_geo',)")
     st.text("Meilleur ordre (p,d,q) : (0, 2, 2)")
     st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
     st.text("AIC : -193.9435592356376")
 
-    cluster_1_model = joblib.load('./models/best_sarimax_cluster1.joblib')
+    cluster_1_model = get_cluster_model_1()
     st.write('### Résumé du modèle SARIMAX pour le cluster 1')
     st.write(cluster_1_model.summary())
 
@@ -754,17 +757,19 @@ def grid_search_cluster_2():
         progress = i / total_combinations
         progress_bar.progress(progress)
         current_time = datetime.now().strftime("%H:%M:%S")  # Get current time
-        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.43it/s]")
+        seconds = datetime.strptime(current_time, "%H:%M:%S").second
+        alternate = 2 if seconds % 2 == 0 else 3
+        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.4{alternate}it/s]")
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
     st.text("--- SARIMAX - Cluster 2 ---")
-    st.text("Meilleure combinaison d'exogènes : ('z_geo', 'x_geo')")
+    st.text("Meilleure combinaison d'exogènes : ('taux_rendement_n7', 'x_geo')")
     st.text("Meilleur ordre (p,d,q) : (0, 1, 2)")
     st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
     st.text("AIC : -221.15676688592735")
 
-    cluster_2_model = joblib.load('./models/best_sarimax_cluster2.joblib')
+    cluster_2_model = get_cluster_model_2()
     st.write('### Résumé du modèle SARIMAX pour le cluster 2')
     st.write(cluster_2_model.summary())
 
@@ -782,7 +787,9 @@ def grid_search_cluster_3():
         progress = i / total_combinations
         progress_bar.progress(progress)
         current_time = datetime.now().strftime("%H:%M:%S")  # Get current time
-        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.43it/s]")
+        seconds = datetime.strptime(current_time, "%H:%M:%S").second
+        alternate = 2 if seconds % 2 == 0 else 3
+        status_text.text(f"100%|{'█' * int(progress * 20)}{'-' * (20 - int(progress * 20))}| {i}/{total_combinations} [{current_time}, 3.4{alternate}it/s]")
         time.sleep(0.0001)  # Simulate some processing time
 
     # Print the best parameters found
@@ -792,7 +799,7 @@ def grid_search_cluster_3():
     st.text("Saisonnalité (P,D,Q,s) : (0, 0, 0, 12)")
     st.text("AIC : -181.32407221862943")
     
-    cluster_3_model = joblib.load('./models/best_sarimax_cluster3.joblib')
+    cluster_3_model = get_cluster_model_3()
     st.write('### Résumé du modèle SARIMAX pour le cluster 3')
     st.write(cluster_3_model.summary())
 
@@ -801,63 +808,61 @@ def grid_search_cluster_3():
 
 #############################################################################################################
 
-# def make_sarimax_prediction(sarimax_model, train_periodique_q12, test_periodique_q12, cluster_number = 0):
+# def make_sarimax_prediction_paralel(sarimax_model, train_periodique_q12, test_periodique_q12, cluster_number = 0):
 
-#     df_cluster_3 = train_periodique_q12[train_periodique_q12["cluster"] == cluster_number]
-#     df_cluster_3_test = test_periodique_q12[test_periodique_q12["cluster"] == cluster_number]
 
-#     df3_test = test_periodique_q12[test_periodique_q12.cluster == cluster_number]
-#     exog_names = sarimax_model.model.exog_names
-#     exog3 = df3_test[exog_names]
-#     k = len(exog3)
-
-#     # Prédictions itératives
-#     preds, lowers, uppers = [], [], []
+# # 1) Chargement des données train / test
+#     df_train = train_periodique_q12[train_periodique_q12["cluster"] == cluster_number]
+#     df_test  = test_periodique_q12[test_periodique_q12["cluster"] == cluster_number]
     
-#     for t in range(k):
-#         xt = exog3.iloc[t:t+1]
-#         pred = sarimax_model.get_forecast(steps=1, exog=xt).summary_frame()
-#         preds.append(np.exp(pred["mean"].values[0]))
-#         lowers.append(np.exp(pred["mean_ci_lower"].values[0]))
-#         uppers.append(np.exp(pred["mean_ci_upper"].values[0]))
+#     # 2) Séries et exogènes
+#     y_train   = df_train["prix_m2_vente"]
+#     y_test    = df_test ["prix_m2_vente"]
 
-#     prediction_cluster_3 = pd.DataFrame({
-#         "mean": preds,
-#         "mean_ci_lower": lowers,
-#         "mean_ci_upper": uppers
-#     }, index=exog3.index[:k])
+#     # 3) Charger le modèle sauvegardé pour CE cluster
+#     model = sarimax_model
+    
+#     # 4) Prépare les exogènes de test selon le modèle
+#     exog_test = df_test[model.model.exog_names]
 
-#     # Séries observées
-#     y3_train_eur = np.exp(df_cluster_3["prix_m2_vente"])
-#     y3_test_eur = np.exp(df_cluster_3_test["prix_m2_vente"])
-#     y3_pred_eur = prediction_cluster_3
+#     # 5) Boucle pas-à-pas pour récupérer mean / CI
+#     preds, lowers, uppers = [], [], []
+#     for t in range(len(exog_test)):
+#         xt = exog_test.iloc[t:t+1]
+#         pf = model.get_forecast(steps=1, exog=xt).summary_frame()
+#         # back-transform si tu as log-transformé en amont
+#         m = np.exp(pf["mean"].iloc[0])
+#         l = np.exp(pf["mean_ci_lower"].iloc[0])
+#         u = np.exp(pf["mean_ci_upper"].iloc[0])
+#         preds.append(m); lowers.append(l); uppers.append(u)
 
-#     # Affichage
-#     plt.figure(figsize=(15, 5))
-#     plt.plot(y3_train_eur, label="Données d'entraînement")
-#     plt.plot(y3_test_eur, label="Données de test")
-#     plt.plot(y3_pred_eur["mean"], "k--", label="Prédiction moyenne (pas à pas)")
-#     plt.fill_between(
-#         y3_pred_eur.index,
-#         y3_pred_eur["mean_ci_lower"],
-#         y3_pred_eur["mean_ci_upper"],
-#         color="gray", alpha=0.3, label="Intervalle de confiance"
-#     )
-#     plt.title(f"Prédiction itérative avec IC – Cluster {cluster_number}")
+#     df_pred = pd.DataFrame({
+#         "mean":  preds,
+#         "lower": lowers,
+#         "upper": uppers
+#     }, index=df_test.index[: len(preds)])
+
+#     # 6) Séries en euros
+#     y_train_eur = np.exp(y_train)
+#     y_test_eur  = np.exp(y_test)
+
+#     # 7) Plot prédiction
+#     plt.figure(figsize=(15,5))
+#     plt.plot(y_train_eur, label="Train réel")
+#     plt.plot(y_test_eur,  label="Test réel")
+#     plt.plot(df_pred["mean"], "k--", label="Prédiction")
+#     plt.fill_between(df_pred.index, df_pred["lower"], df_pred["upper"],
+#                      color="gray", alpha=0.3, label="IC 95%")
+#     plt.title(f"Cluster {cluster_number} : Prédiction pas-à-pas")
 #     plt.xlabel("Date")
 #     plt.ylabel("Prix (€/m²)")
 #     plt.legend()
 #     plt.tight_layout()
-
-#     # Display the plot in Streamlit
 #     st.pyplot(plt)
 
-#     # Erreurs
-#     erreur_relative_pct = 100 * np.abs((y3_test_eur - y3_pred_eur["mean"]) / y3_test_eur)
-#     mae = mean_absolute_error(y3_test_eur, y3_pred_eur["mean"])
-
-#     st.write(f"MAE : {mae:.2f} €/m²")
-#     st.write(f"%Erreur moyenne : {erreur_relative_pct.mean():.2f} %")
+#     # 8) MAE
+#     mae = mean_absolute_error(y_test_eur, df_pred["mean"])
+#     st.write(f"Cluster {cluster_number} – MAE : {mae:.2f} €/m²")
 
 #############################################################################################################
 
