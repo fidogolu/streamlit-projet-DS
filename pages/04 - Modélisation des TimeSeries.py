@@ -1,9 +1,5 @@
 import streamlit as st
-
 import pandas as pd
-
-
-
 
 from utils import make_correlation_matrix,seasonal_decompose_for_clusters, draw_clusters_cvs, differeciate_cluster
 from utils import plot_acf_pacf
@@ -20,16 +16,17 @@ st.title("Modélisation des séries temporelles")
 #############################################################################################################
 
 train_periodique_q12 = pd.read_csv('./data/processed/Sales/train_periodique_q12.csv', sep=';' ,index_col="date", parse_dates=["date"])
-test_periodique_q12 = pd.read_csv('./data/processed/Sales/test_periodique_q12.csv', sep=';' ,index_col="date", parse_dates=["date"])
 
+train_periodique_q12 = train_periodique_q12.loc[:, ~train_periodique_q12.columns.str.contains('^Unnamed')]
 train_periodique_q12.sort_index(inplace=True)
-test_periodique_q12.sort_index(inplace=True)    
 
 st.write('Données d\'entrainement')
-st.dataframe(train_periodique_q12.sort_index().head())
 
-# st.write('Données de test')
-# st.dataframe(test_periodique_q12.sort_index().head())
+config = {
+    "_index": st.column_config.DateColumn("Date", format="MMM YYYY"),
+}
+
+st.dataframe(train_periodique_q12.sort_index().head(),column_config=config)
 
 #############################################################################################################
 # Corelation matrix
