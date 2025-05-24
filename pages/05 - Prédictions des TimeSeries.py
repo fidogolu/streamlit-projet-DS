@@ -20,16 +20,16 @@ test_periodique_q12.sort_index(inplace=True)
 st.title("Prédictions des time series avec SARIMAX")
 
 st.write('### Prédictions pour le cluster 0')
-make_sarimax_prediction(train_periodique_q12, test_periodique_q12,cluster_number=0,order=(0, 1, 0), seasonal_order=(0, 1, 0, 12))
+make_sarimax_prediction(train_periodique_q12, test_periodique_q12,cluster_number=0,order=(1, 0, 0), seasonal_order=(0, 1, 0, 24))
 
 st.write('### Prédictions pour le cluster 1')
-make_sarimax_prediction(train_periodique_q12, test_periodique_q12,cluster_number=1,order=(0, 2, 2), seasonal_order=(0, 2, 0, 12))
+make_sarimax_prediction(train_periodique_q12, test_periodique_q12,cluster_number=1,order=(2, 2, 2), seasonal_order=(0, 2, 0, 14))
 
 st.write('### Prédictions pour le cluster 2')
-make_sarimax_prediction(train_periodique_q12, test_periodique_q12,cluster_number=2,order=(2, 1, 0), seasonal_order=(0, 0, 0, 12))
+make_sarimax_prediction(train_periodique_q12, test_periodique_q12,cluster_number=2,order=(1, 1, 1), seasonal_order=(0, 1, 0, 36))
 
 st.write('### Prédictions pour le cluster 3')
-make_sarimax_prediction(train_periodique_q12, test_periodique_q12,cluster_number=3,order=(1, 1, 0), seasonal_order=(0, 1, 0, 12))
+make_sarimax_prediction(train_periodique_q12, test_periodique_q12,cluster_number=3,order=(0, 1, 0), seasonal_order=(0, 1, 0, 36))
 
 #############################################################################################################
 # Conclusions

@@ -916,7 +916,7 @@ def make_sarimax_prediction(train_periodique_q12, test_periodique_q12, order=(0,
     y_pred = np.exp(prediction['mean'])
 
     # Plot
-    fig, ax = plt.subplots(figsize=(15, 5))
+    fig, ax = plt.subplots(figsize=(20, 8))
     plt.plot(np.exp(df_cluster['prix_m2_vente']), label='Données d\'entraînement')
     plt.plot(y_test, label='Données de test')
     plt.plot(y_pred, 'k--', label='Prédiction moyenne (pas à pas)')
