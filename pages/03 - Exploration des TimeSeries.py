@@ -16,7 +16,12 @@ st.write("Prix de vente du m² sur l'ensemble de la France")
 #############################################################################################################
 
 df_sales = load_df_sales_clean_ST()
-st.dataframe(df_sales.sort_index().head())
+
+config = {
+    "_index": st.column_config.DateColumn("Date", format="MMM YYYY"),
+}
+
+st.dataframe(df_sales.sort_index().head(),column_config=config)
 
 #############################################################################################################
 # Draw the distribution of the target variable
